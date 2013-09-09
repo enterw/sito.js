@@ -1,0 +1,21 @@
+var http = require('http');
+
+var dispatcher = require('/home/igor/Scrivania/node.js/node_modules/httpdispatcher.js');
+
+var bind = require('bind');
+
+dispatcher.onGet('/home', function(req, res, chain) {
+    bind.toFile('tpl/home.tpl', {
+        name: 'Alberto',
+        address: 'via Roma',
+        city: 'Milano'
+    }, function(data) {
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.end(data);
+    });
+});
+ 
+http.createServer(function (req, res) {
+  dispatcher.dispatch(req, res);
+}).listen(1339, '127.0.0.1');
+

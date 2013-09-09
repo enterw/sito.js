@@ -1,0 +1,17 @@
+var http = require('http');
+ 
+var server = http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Hello World');
+})
+ 
+server.listen(1337, '127.0.0.1');
+ 
+console.log('Server running at http://127.0.0.1:1337/');
+console.log(require('url').parse('http://www.html.it'));
+
+
+var sm = require('/home/igor/Scrivania/node.js/node_modules/simplemath.js');
+console.log(sm.sum(1,2)); //echo 3
+console.log(sm.product(1,2)); //echo 2;
+console.log(sm.private(1,2)); //error!

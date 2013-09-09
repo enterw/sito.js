@@ -1,0 +1,73 @@
+var http = require('http');
+
+var dispatcher = require('/home/igor/Scrivania/sito.js/node_modules/httpdispatcher.js');
+
+var bind = require('bind');
+
+dispatcher.onGet('/', function(req, res, chain) {
+    bind.toFile('tpl/home.tpl', {
+        plus: function(cb, a) {
+            return cb(parseInt(a, 10)+1);
+        }
+    }, function(data) {
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.end(data);
+    });
+});
+
+dispatcher.onGet('/chi-sono', function(req, res, chain) {
+    bind.toFile('tpl/chi-sono.tpl', {
+        name: 'Igor',
+        address: 'Via Turati',
+        city: 'Bergamo'
+    }, function(data) {
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.end(data);
+    });
+});
+
+dispatcher.onGet('/xml', function(req, res, chain) {
+    bind.toFile('tpl/xml.tpl', {
+        name: 'Alberto',
+        city: 'Milano',
+        skills: [{
+            skill: 'NodeJS',
+            grade: 'A'
+        }, {
+            skill: 'JavaScript',
+            grade: 'A',
+        }, {
+            skill: 'Bash scripting',
+            grade: 'B'
+        }]
+    }, function(data) {
+        res.writeHead(200, {'Content-Type': 'text/xml'});
+        res.end(data);
+    });
+});
+
+dispatcher.onGet('/parametri', function(req, res, chain) {
+    bind.toFile('tpl/parametri.tpl', {
+        parametro_get: req.params["id"]
+    }, function(data) {
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.end(data);
+    });
+});
+
+dispatcher.onPost('/parametri', function(req, res, chain) {
+    bind.toFile('tpl/parametri.tpl', {
+        parametro_post: req.params["valore"],
+		  parametro_get: req.params["id"]
+    }, function(data) {
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.end(data);
+    });
+});
+ 
+http.createServer(function (req, res) {
+  dispatcher.dispatch(req, res);
+}).listen(1340, '127.0.0.1');
+
+
+

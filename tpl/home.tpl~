@@ -1,0 +1,4 @@
+/* tpl/home.tpl */
+Risultato: (:plus ~ 5:)
+<h1>HOME</h1>
+(:file ~ tpl/menu.tpl:)

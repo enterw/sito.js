@@ -1,0 +1,4 @@
+/* tpl/home3.tpl */
+Risultato: (:plus ~ 5:)
+<h1>Io sono il padre</h1>
+(:file ~ tpl/figlio.tpl)
